@@ -32,7 +32,7 @@
   <!-- <meta name="description" content="About this app" /> -->
 </svelte:head>
 
-<div>
+<div class="space-y-4">
   {#await getManufacturerList()}
     <div class="loader" />
   {:then manufacturerList}
@@ -49,7 +49,7 @@
 
   {#if selectedModel}
     <button
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
       on:click={onSave}>Сохранить</button
     >
   {/if}
