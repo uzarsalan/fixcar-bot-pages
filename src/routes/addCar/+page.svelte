@@ -21,6 +21,10 @@
     selectedModel = detail;
     console.log(detail);
   };
+
+  const onSave = () => {
+    window.Telegram.WebApp.close();
+  };
 </script>
 
 <svelte:head>
@@ -41,5 +45,12 @@
     {:then modelsList}
       <Select on:change={onModelChange} options={modelsList} />
     {/await}
+  {/if}
+
+  {#if selectedModel}
+    <button
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      on:click={onSave}>Сохранить</button
+    >
   {/if}
 </div>
