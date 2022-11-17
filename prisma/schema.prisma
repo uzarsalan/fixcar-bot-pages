@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,51 +7,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model postgress_sessions {
-  id      String @unique
-  session String
-}
-
-model User {
-  id         Int     @id @default(autoincrement())
-  telegramId BigInt? @db.BigInt @unique
-  firstName  String?
-  lastName   String?
-  middleName String?
-  cars       Car[]
-  posts      Post[]
-}
-
-model Post {
-  id        Int      @id @default(autoincrement())
-  content   String
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
-  car       Car      @relation(fields: [carId], references: [id])
-  carId     Int
-  Answer    Answer[]
-}
-
 model Answer {
-  id           Int     @id @default(autoincrement())
-  market       Market  @relation(fields: [marketId], references: [id])
+  id           Int      @id @default(autoincrement())
   marketId     Int
-  post         Post    @relation(fields: [postId], references: [id])
   postId       Int
-  price        Decimal
+  price        Float
   message      String
   availability String
+  createdAt    DateTime @default(now())
+  Market       Market   @relation(fields: [marketId], references: [id])
+  Post         Post     @relation(fields: [postId], references: [id])
 }
 
 model Car {
-  id     Int     @id @default(autoincrement())
-  User   User?   @relation(fields: [userId], references: [id])
-  userId Int?
-  grz    String?
-  vin    String?
-  data   Json
-  Post   Post[]
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  grz          String?
+  vin          String?
+  data         Json?
+  brand        String?
+  model        String?
+  year         Float?
+  deleted      Boolean  @default(false)
+  addingMethod String?
+  createdAt    DateTime @default(now())
+  User         User     @relation(fields: [userId], references: [id])
+  Post         Post[]
 }
 
 model Market {
@@ -63,5 +41,35 @@ model Market {
   phoneNumber String
   address     String
   location    Json
+  createdAt   DateTime @default(now())
   Answer      Answer[]
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  content   String
+  published Boolean  @default(false)
+  authorId  Int
+  carId     Int
+  deleted   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  User      User     @relation(fields: [authorId], references: [id])
+  Car       Car      @relation(fields: [carId], references: [id])
+  Answer    Answer[]
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  telegramId BigInt?  @unique
+  firstName  String?
+  lastName   String?
+  middleName String?
+  createdAt  DateTime @default(now())
+  Car        Car[]
+  Post       Post[]
+}
+
+model postgress_sessions {
+  id      String @unique
+  session String
 }
