@@ -10,7 +10,7 @@
 <div>
   {#each Object.keys(data) as key}
     <div
-      class="m-y-3 p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700"
+      class="mb-3 p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700"
     >
       <a href="#">
         <h5
