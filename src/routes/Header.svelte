@@ -1,7 +1,7 @@
 <script>
 </script>
 
-<header>Header</header>
+<header></header>
 
 <style>
   header {
