@@ -22,17 +22,21 @@ export let UserData = {
     });
     return user;
   },
-  async getById(id) {
+  async getById(id, include) {
     const user = await prisma.user.findUnique({
       where: {
         id,
       },
+      include,
     });
     return user;
   },
   async find(where) {
     const user = await prisma.user.findUnique({
       where,
+      include: {
+        city: true,
+      },
     });
     return user;
   },
@@ -62,12 +66,13 @@ export let CarData = {
     });
     return response;
   },
-  async find(where) {
+  async find(where, include) {
     where.NOT = {
       deleted: true,
     };
     const response = await prisma.car.findMany({
       where,
+      include,
     });
     return response;
   },
@@ -75,6 +80,12 @@ export let CarData = {
     const response = await prisma.car.update({
       where: { id },
       data: { deleted: true },
+    });
+    return response;
+  },
+  async count(where) {
+    const response = await prisma.car.count({
+      where,
     });
     return response;
   },
@@ -105,7 +116,7 @@ export let PostData = {
     });
     return response;
   },
-  async find(where) {
+  async find(where, include) {
     const response = await prisma.post.findMany({
       orderBy: [
         {
@@ -116,6 +127,7 @@ export let PostData = {
         },
       ],
       where,
+      include,
     });
     return response;
   },
@@ -126,12 +138,19 @@ export let PostData = {
     });
     return response;
   },
+  async count(where) {
+    const response = await prisma.post.count({
+      where,
+    });
+    return response;
+  },
 };
 
 export let AnswerData = {
-  async create(data) {
+  async create(data, include) {
     const response = await prisma.answer.create({
       data,
+      include,
     });
     return response;
   },
@@ -152,12 +171,63 @@ export let AnswerData = {
     });
     return response;
   },
-  async find(where, include) {
+  async find(where) {
     const response = await prisma.answer.findMany({
       orderBy: [
-        // {
-        //   deleted: "asc",
-        // },
+        {
+          deleted: "asc",
+        },
+        {
+          createdAt: "desc",
+        },
+      ],
+      where,
+    });
+    return response;
+  },
+  async delete(id) {
+    const response = await prisma.answer.update({
+      where: { id },
+      data: { deleted: true },
+    });
+    return response;
+  },
+  async count(where) {
+    const response = await prisma.answer.count({
+      where,
+    });
+    return response;
+  },
+};
+
+export let MarketData = {
+  async create(data) {
+    const response = await prisma.market.create({
+      data,
+    });
+    return response;
+  },
+  async update(id, data) {
+    const response = await prisma.market.update({
+      data,
+      where: {
+        id,
+      },
+    });
+    return response;
+  },
+  async getById(id, include) {
+    const response = await prisma.market.findUnique({
+      where: {
+        id,
+      },
+      include,
+    });
+    return response;
+  },
+  async find(where, include) {
+    const response = await prisma.market.findMany({
+      orderBy: [
         {
           createdAt: "desc",
         },
@@ -167,21 +237,20 @@ export let AnswerData = {
     });
     return response;
   },
-  // async delete(id) {
-  //   const response = await prisma.answer.update({
-  //     where: { id },
-  //     data: { deleted: true },
-  //   });
-  //   return response;
-  // },
+  async delete(id) {
+    const response = await prisma.market.update({
+      where: { id },
+      data: { deleted: true },
+    });
+    return response;
+  },
   async count(where) {
-    const response = await prisma.answer.count({
+    const response = await prisma.market.count({
       where,
     });
     return response;
   },
 };
-
 // export async function main() {
 //   const user = await prisma.user.create({
 //     data: {

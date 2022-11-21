@@ -42,6 +42,8 @@ model Market {
   address     String
   location    Json
   createdAt   DateTime @default(now())
+  cityId      Int?
+  City        City?    @relation(fields: [cityId], references: [id])
   Answer      Answer[]
 }
 
@@ -59,17 +61,27 @@ model Post {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  telegramId BigInt?  @unique
-  firstName  String?
-  lastName   String?
-  middleName String?
-  createdAt  DateTime @default(now())
-  Car        Car[]
-  Post       Post[]
+  id          Int      @id @default(autoincrement())
+  telegramId  BigInt?  @unique
+  firstName   String?
+  lastName    String?
+  middleName  String?
+  createdAt   DateTime @default(now())
+  phoneNumber String?
+  cityId      Int?
+  City        City?    @relation(fields: [cityId], references: [id])
+  Car         Car[]
+  Post        Post[]
 }
 
 model postgress_sessions {
   id      String @unique
   session String
+}
+
+model City {
+  id     Int      @id @default(autoincrement())
+  name   String   @unique
+  Market Market[]
+  User   User[]
 }
