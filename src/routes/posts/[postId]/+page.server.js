@@ -4,6 +4,7 @@ export async function load({ params }) {
   let post = await PostData.getById(+params.postId, {
     Answer: { include: { Market: true } },
     User: { include: { City: true } },
+    Car: true,
   });
   console.log(post);
   return post;

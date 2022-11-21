@@ -80,8 +80,28 @@
 </script>
 
 <div class="container mx-auto">
+  <div>Автомобиль</div>
+  <div class="my-4 font-bold">
+    {post.Car.brand}
+    {post.Car.model}
+    {post.Car.year}
+    <a href={`${post.id}/carInfo`}
+      ><button
+        class="px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >Подробнее</button
+      ></a
+    >
+  </div>
+
+  <div>Клиент</div>
+  <div class="my-4 font-bold">
+    {post.User.firstName}
+    {post.User.lastName}
+    {post.User.phoneNumber}
+  </div>
+  <div class="my-4 font-bold">Город: {post.User.City.name}</div>
   <div class="my-4">
-    {post.content}
+    <strong>Сообщение: </strong>{post.content}
   </div>
   <table class="w-full border border-slate-500">
     <thead>
@@ -121,6 +141,7 @@
                 localFiltering={false}
                 labelFieldName="name"
                 valueFieldName="id"
+                placeholder="Введите название"
                 bind:selectedItem={selectedMarket}
               />
             </div>
@@ -143,13 +164,18 @@
                 <label for="new-market-phone">Номер телефона</label>
                 <input
                   id="new-market-phone"
+                  placeholder="+79..."
                   bind:value={newMarketData.phoneNumber}
                 />
               </p>
             {/if}
           </td>
           <td class="border border-slate-700 p-2">
-            <input type="number" bind:value={newAnswerData.price} />
+            <input
+              type="number"
+              placeholder="1000"
+              bind:value={newAnswerData.price}
+            />
           </td>
           <td class="border border-slate-700 p-2">
             <select bind:value={newAnswerData.availability}>
@@ -158,7 +184,10 @@
             </select>
           </td>
           <td class="border border-slate-700 p-2">
-            <textarea bind:value={newAnswerData.message} />
+            <textarea
+              bind:value={newAnswerData.message}
+              placeholder="Подробнее о предложении"
+            />
           </td>
           <td class="border border-slate-700 p-2">
             <button
