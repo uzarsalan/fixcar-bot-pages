@@ -26,6 +26,9 @@
             {data[key].Market.name}
           </h5>
         </a>
+        <p class="mb-3 font-normal text-gray-900 dark:text-white">
+          {data[key].Market.address}
+        </p>
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
           {data[key].message}
         </p>
