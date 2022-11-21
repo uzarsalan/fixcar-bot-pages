@@ -171,17 +171,15 @@ export let AnswerData = {
     });
     return response;
   },
-  async find(where) {
+  async find(where, include) {
     const response = await prisma.answer.findMany({
       orderBy: [
-        {
-          deleted: "asc",
-        },
         {
           createdAt: "desc",
         },
       ],
       where,
+      include,
     });
     return response;
   },
