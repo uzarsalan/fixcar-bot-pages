@@ -200,7 +200,7 @@
       {/if}
     </tbody>
   </table>
-  {#if !addRow}
+  {#if !addRow && !data.deleted}
     <div class="flex items-center justify-center py-4">
       <button
         on:click={() => (addRow = true)}
