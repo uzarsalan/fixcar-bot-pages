@@ -2,8 +2,14 @@
   export let data;
   console.log(data);
   let statuses = {
-    available: "В наличии",
-    request: "Под заказ",
+    available: {
+      text: "В наличии",
+      cssClass: "dark:bg-green-800 dark:border-green-700",
+    },
+    request: {
+      text: "Под заказ",
+      cssClass: "dark:bg-orange-800 dark:border-orange-700",
+    },
   };
 </script>
 
@@ -35,8 +41,9 @@
         <p class="mb-3 font-bold text-gray-700 dark:text-white">
           {data[key].price + " руб"}
           <span
-            class="p-1 bg-white border border-gray-200 rounded-lg dark:bg-green-800 dark:border-green-700"
-            >{statuses[data[key].availability]}</span
+            class={`p-1 bg-white border border-gray-200 rounded-lg ${
+              statuses[data[key].availability].cssClass
+            }`}>{statuses[data[key].availability].text}</span
           >
         </p>
         <button
