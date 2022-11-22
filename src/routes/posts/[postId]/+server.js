@@ -7,6 +7,7 @@ export async function GET({ params }) {
   let post = await PostData.getById(+params.postId, {
     Answer: { include: { Market: true } },
     User: { include: { City: true } },
+    Car: true,
   });
 
   return json(post);

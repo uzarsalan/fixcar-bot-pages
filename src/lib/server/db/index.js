@@ -163,11 +163,12 @@ export let AnswerData = {
     });
     return response;
   },
-  async getById(id) {
+  async getById(id, include) {
     const response = await prisma.answer.findUnique({
       where: {
         id,
       },
+      include,
     });
     return response;
   },
